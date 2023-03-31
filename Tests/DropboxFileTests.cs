@@ -1,4 +1,4 @@
-﻿using TestAutomationDropboxApp;
+﻿using DemoApp;
 
 namespace Tests;
 
@@ -6,29 +6,44 @@ namespace Tests;
 public class DropboxFileTests
 {
     [TestMethod]
+    public void Create_dropbox_file_object()
+    {
+        var dropboxFile = new DropboxFile("temp.txt");
+    }
+
+    [TestMethod]
     public void File_has_a_name()
     {
-        var sut = new DropboxFile("picture.jpg");
-        Assert.AreEqual("picture.jpg", sut.GetName());
+        var dropboxFile = new DropboxFile("readme.txt");
+        Assert.AreEqual("readme.txt", dropboxFile.GetName());
     }
 
     [TestMethod]
-    public void Text_file_is_detected()
+    public void File_has_some_other_name()
     {
-        var sut = new DropboxFile("readme.txt");
-        Assert.AreEqual("txt", sut.GetFileType());
+        var dropboxFile = new DropboxFile("picture.jpg");
+        Assert.AreEqual("picture.jpg", dropboxFile.GetName());
     }
 
     [TestMethod]
-    public void Jpg_file_is_detected()
+    public void File_has_a_type()
     {
-        var sut = new DropboxFile("picture.jpg");
-        Assert.AreEqual("jpg", sut.GetFileType());
+        var dropboxFile = new DropboxFile("picture.jpg");
+        Assert.AreEqual("jpg", dropboxFile.GetFileType());
     }
 
     [TestMethod]
-    public void Throws_exception_if_name_is_missing()
+    public void File_has_another_type()
     {
-        Assert.ThrowsException<ArgumentNullException>(() => new DropboxFile(""));
+        var dropboxFile = new DropboxFile("picture.tiff");
+        Assert.AreEqual("tiff", dropboxFile.GetFileType());
+    }
+
+    //["picture.tiff", "tiff"]
+    //["readme.txt", "txt"]
+    public void ParameterizedTest(string fileName, string expected)
+    {
+        var dropboxFile = new DropboxFile(fileName);
+        Assert.AreEqual(expected, dropboxFile.GetFileType());
     }
 }

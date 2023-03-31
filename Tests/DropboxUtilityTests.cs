@@ -1,6 +1,5 @@
-﻿using FluentAssertions;
+﻿using DemoApp;
 using Moq;
-using TestAutomationDropboxApp;
 
 namespace Tests;
 
@@ -8,30 +7,33 @@ namespace Tests;
 public class DropboxUtilityTests
 {
     [TestMethod]
-    public void Returns_jpg_files_correctly()
+    public async Task GetAllFilesOfType_demo_with_fake()
     {
-        var expected = new List<DropboxFile> { new DropboxFile("picture.jpg") };
-        var sut = new DropboxUtility(new FakeDropBoxApiClient());
+        var fakeClient = new FakeDropboxClient();
+        var dropboxUtility = new DropboxUtility(fakeClient);
+        var files = await dropboxUtility.GetAllFilesOfType("txt");
 
-        var actual = sut.GetAllFiles("jpg");
-
-        actual.Should().BeEquivalentTo(expected);
+        Assert.AreEqual(1, files.Count);
+        Assert.AreEqual("readme.txt", files[0].GetName());
     }
 
     [TestMethod]
-    public void Mocking_example()
+    public async Task GetAllFilesOfType_demo_with_mock()
     {
-        var expected = new List<DropboxFile> { new DropboxFile("contract.docx") };
-        var dropboxApiClientMock = new Mock<IDropBoxApiClient>();
+        var mock = new Mock<IDropboxClient>();
 
-        var returnedList = new List<DropboxFile> { new DropboxFile("contract.docx") };
-        dropboxApiClientMock.Setup(api => api.GetAllFiles()).Returns(returnedList);
+        var list = new List<DropboxFile>
+        {
+            new DropboxFile("readme.txt"),
+            new DropboxFile("demoapp.exe")
+        };
+        mock.Setup(client => client.GetAllFiles()).Returns(Task.FromResult(list));
 
-        var sut = new DropboxUtility(dropboxApiClientMock.Object);
+        var dropboxUtility = new DropboxUtility(mock.Object);
+        var files = await dropboxUtility.GetAllFilesOfType("txt");
 
-        var actual = sut.GetAllFiles("docx");
-
-        actual.Should().BeEquivalentTo(expected);
-        dropboxApiClientMock.Verify(api => api.GetAllFiles(), Times.Once);
+        // Assert that mock.GetAllFiles() was called one time.
+        //mock.Verify(client => client.GetAllFiles(), Times.Once);
+        mock.Verify(client => client.GetAllFiles("txt"), Times.Once);
     }
 }

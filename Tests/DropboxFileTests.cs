@@ -39,8 +39,10 @@ public class DropboxFileTests
         Assert.AreEqual("tiff", dropboxFile.GetFileType());
     }
 
-    //["picture.tiff", "tiff"]
-    //["readme.txt", "txt"]
+    [DataTestMethod]
+    [DataRow("picture.jpg", "jpg")]
+    [DataRow("picture.tiff", "tiff")]
+    [DataRow("readme.txt", "txt")]
     public void ParameterizedTest(string fileName, string expected)
     {
         var dropboxFile = new DropboxFile(fileName);

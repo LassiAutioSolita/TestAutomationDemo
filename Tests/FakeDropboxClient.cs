@@ -4,8 +4,8 @@ namespace Tests;
 
 public class FakeDropboxClient : IDropboxClient
 {
-    private static readonly List<DropboxFile> _files = new List<DropboxFile>
-        {
+    private static readonly List<DropboxFile> _files = new()
+    {
             new DropboxFile("readme.txt"),
             new DropboxFile("demoapp.exe")
         };

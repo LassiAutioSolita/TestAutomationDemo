@@ -33,7 +33,6 @@ public class DropboxUtilityTests
         var files = await dropboxUtility.GetAllFilesOfType("txt");
 
         // Assert that mock.GetAllFiles() was called one time.
-        //mock.Verify(client => client.GetAllFiles(), Times.Once);
-        mock.Verify(client => client.GetAllFiles("txt"), Times.Once);
+        mock.Verify(client => client.GetAllFiles(), Times.Once);
     }
 }

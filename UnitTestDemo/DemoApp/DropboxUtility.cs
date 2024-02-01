@@ -11,8 +11,6 @@ public class DropboxUtility
 
     public async Task<List<DropboxFile>> GetAllFilesOfType(string type)
     {
-        await _client.GetAllFiles(type);
-
         var files = await _client.GetAllFiles();
         return files.FindAll(file => file.GetFileType() == type);
     }

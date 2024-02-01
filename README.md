@@ -1,6 +1,5 @@
 # TestAutomationDemo
-Demo for Solita Dev Academy, 2023 fall
-(Based on 2023 spring demo)
+Demo for Solita Dev Academy, 2024 spring (and 2023 fall, and 2023 spring)
 
 Contents:
 - `/UnitTestDemo` is a simple unit test demo by Lassi Autio

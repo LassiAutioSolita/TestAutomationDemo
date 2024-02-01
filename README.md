@@ -4,4 +4,5 @@ Demo for Solita Dev Academy, 2023 fall
 
 Contents:
 - `/UnitTestDemo` is a simple unit test demo by Lassi Autio
-- `/UiTestDemo` is a UI test demo based on the https://playwright.dev/dotnet/docs/intro
+- `/MSTestUiTestDemo` is a UI test demo copied from https://playwright.dev/dotnet/docs/intro
+- (`/UiTestDemo` is a UI test demo based on the https://playwright.dev/dotnet/docs/intro but has sleeps and is not the best example)
